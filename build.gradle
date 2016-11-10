@@ -1,0 +1,57 @@
+group 'fun.docker.sample'
+
+buildscript {
+    ext {
+        springBootVersion = '1.4.0.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Brixton.RELEASE'
+    }
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-actuator-docs')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+
+    compile group: 'commons-io', name: 'commons-io', version: '2.5'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
+
+    compile group: 'com.h2database', name: 'h2', version: '1.4.193'
+
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+bootRun {
+    addResources = true
+}
+
+bootRepackage {
+    mainClass = 'fun.docker.sample.Main'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14.1'
+}

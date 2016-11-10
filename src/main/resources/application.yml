@@ -1,0 +1,18 @@
+# application server
+server.contextPath: /fun
+server.port: 8080
+
+# application datasource
+spring:
+  datasource:
+    url: jdbc:h2:mem:fun
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hbm2ddl:
+        auto: none
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
